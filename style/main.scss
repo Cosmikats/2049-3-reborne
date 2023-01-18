@@ -6,6 +6,7 @@ $grid-spacing: 15px;
 $grid-row-cells: 4;
 $tile-size: calc(($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells);
 $tile-border-radius: 3px;
+$score-margin: 5px;
 
 $mobile-threshold: $field-width + 20px;
 
@@ -45,6 +46,15 @@ h1.title {
   margin: 0;
   display: block;
   float: left;
+  // reborne edition
+  position: relative;
+}
+
+h1.title img {
+  position: absolute;
+  z-index: 10;
+  bottom: 0px;
+  right: 5px;
 }
 
 @include keyframes(move-up) {
@@ -293,6 +303,14 @@ hr {
       width: ceil($tile-size);
       height: ceil($tile-size);
       line-height: ceil($tile-size);
+
+      // reborne edition
+      p {
+        line-height: 0;
+        position: absolute;
+        bottom: $score-margin;
+        right: $score-margin;
+      }
     }
 
     // Build position classes
@@ -336,7 +354,7 @@ hr {
   $limit: 11;
 
   // Colors for all 11 states, false = no special color
-  $special-colors: false false, // 2
+  $special-colors: false true, // 2
                    false false, // 4
                    #f78e48 true, // 8
                    #fc5e2e true, // 16
@@ -345,7 +363,7 @@ hr {
                    false true, // 128
                    false true, // 256
                    false true, // 512
-                   false true, // 1024
+                   false false, // 1024
                    false true; // 2048
 
   // Build tile colors
@@ -396,6 +414,16 @@ hr {
           font-size: 15px;
         }
       }
+
+      // reborne edition
+      $image-background: "pics/tile-" + $power + ".png";
+      background: url($image-background) no-repeat center center fixed;
+      @include background-size(cover);
+
+      font-size: 20px;
+      @include smaller($mobile-threshold) {
+        font-size: 15px;
+      }
     }
 
     $exponent: $exponent + 1;
@@ -410,6 +438,17 @@ hr {
 
     @include smaller($mobile-threshold) {
       font-size: 10px;
+    }
+
+    // reborne edition
+    $image-background: "pics/tile-super.png";
+    background: url($image-background) no-repeat center center fixed;
+    @include background-size(cover);
+
+    color: $bright-text-color;
+    font-size: 20px;
+    @include smaller($mobile-threshold) {
+      font-size: 15px;
     }
   }
 }
@@ -474,12 +513,13 @@ hr {
 
 @include smaller($mobile-threshold) {
   // Redefine variables for smaller screens
-  $field-width: 280px;
-  $grid-spacing: 10px;
-  $grid-row-cells: 4;
-  $tile-size: calc(($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells);
-  $tile-border-radius: 3px;
-  $game-container-margin-top: 17px;
+  $field-width: 280px !global;
+  $grid-spacing: 10px !global;
+  $grid-row-cells: 4 !global;
+  $tile-size: calc(($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells) !global;
+  $tile-border-radius: 3px !global;
+  $game-container-margin-top: 17px !global;
+  $score-margin: 2px !global;
 
   html, body {
     font-size: 15px;
@@ -493,6 +533,11 @@ hr {
   h1.title {
     font-size: 27px;
     margin-top: 15px;
+  }
+
+  h1.title img {
+      // scale image with to h1 font size
+      width: calc(128px * 27px/80px);
   }
 
   .container {
@@ -532,6 +577,8 @@ hr {
   // Rest of the font-size adjustments in the tile class
   .tile .tile-inner {
     font-size: 35px;
+    // reborne edition
+    font-size: 20px;
   }
 
   .game-message {
