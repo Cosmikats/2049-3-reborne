@@ -4,7 +4,7 @@
 $field-width: 500px;
 $grid-spacing: 15px;
 $grid-row-cells: 4;
-$tile-size: ($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells;
+$tile-size: calc(($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells);
 $tile-border-radius: 3px;
 
 $mobile-threshold: $field-width + 20px;
@@ -354,8 +354,8 @@ hr {
 
     &.tile-#{$power} .tile-inner {
       // Calculate base background color
-      $gold-percent: ($exponent - 1) / ($limit - 1) * 100;
-      $mixed-background: mix($tile-gold-color, $tile-color, $gold-percent);
+      $gold-percent: calc(($exponent - 1) / ($limit - 1) * 100);
+      $mixed-background: mix($tile-gold-color, $tile-color, $gold-percent*1%);
 
       $nth-color: nth($special-colors, $exponent);
 
@@ -374,11 +374,11 @@ hr {
       background: $mixed-background;
 
       // Add glow
-      $glow-opacity: max($exponent - 4, 0) / ($limit - 4);
+      $glow-opacity: calc(max($exponent - 4, 0) / ($limit - 4));
 
       @if not $special-background {
-        box-shadow: 0 0 30px 10px rgba($tile-gold-glow-color, $glow-opacity / 1.8),
-                    inset 0 0 0 1px rgba(white, $glow-opacity / 3);
+        box-shadow: 0 0 30px 10px rgba($tile-gold-glow-color, calc($glow-opacity / 1.8)),
+                    inset 0 0 0 1px rgba(white, calc($glow-opacity / 3));
       }
 
       // Adjust font size for bigger numbers
@@ -477,7 +477,7 @@ hr {
   $field-width: 280px;
   $grid-spacing: 10px;
   $grid-row-cells: 4;
-  $tile-size: ($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells;
+  $tile-size: calc(($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells);
   $tile-border-radius: 3px;
   $game-container-margin-top: 17px;
 
