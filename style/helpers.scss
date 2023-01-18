@@ -52,15 +52,22 @@
   transform: $args;
 }
 
+@mixin background-size($args...) {
+  -webkit-background-size: $args;
+  -moz-background-size: $args;
+  -o-background-size: $args;
+  background-size: cover;
+}
+
 // Keyframe animations
 @mixin keyframes($animation-name) {
-  @-webkit-keyframes $animation-name {
+  @-webkit-keyframes #{$animation-name} {
     @content;
   }
-  @-moz-keyframes $animation-name {
+  @-moz-keyframes #{$animation-name} {
     @content;
   }
-  @keyframes $animation-name {
+  @keyframes #{$animation-name} {
     @content;
   }
 }
